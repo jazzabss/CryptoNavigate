@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CryptoNavigate - Twoja mapa po świecie kryptowalut</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0; padding: 0;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+
+        background: linear-gradient(135deg, #f9f8f4 0%, #e9e5db 100%);
+        color: #3b2f2f;
+
+        /* graficzne tło blockchain */
+        background-image:
+          url("data:image/svg+xml;utf8,<svg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'><circle cx='20' cy='20' r='1.5' fill='%23bfa280' fill-opacity='0.15'/><circle cx='5' cy='5' r='1.5' fill='%23bfa280' fill-opacity='0.15'/><circle cx='35' cy='35' r='1.5' fill='%23bfa280' fill-opacity='0.15'/><line x1='5' y1='5' x2='35' y2='35' stroke='%23bfa280' stroke-opacity='0.1' stroke-width='0.8'/><line x1='35' y1='5' x2='5' y2='35' stroke='%23bfa280' stroke-opacity='0.1' stroke-width='0.8'/></svg>");
+        background-repeat: repeat;
+    }
+    *, *:before, *:after {
+        box-sizing: inherit;
+    }
+    header {
+        background: #f5f0e6;
+        padding: 2rem 1rem;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+    header h1 {
+        font-size: 2.8rem;
+        margin: 0;
+    }
+    header p {
+        font-size: 1.3rem;
+        color: #6d5c5c;
+        margin-top: 0.3rem;
+    }
+    section {
+        padding: 3rem 1.5rem;
+        max-width: 760px;
+        margin: auto;
+        position: relative;
+        z-index: 2;
+    }
+    h2 {
+        border-bottom: 2px solid #bfa280;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    .btn-consult {
+        display: inline-block;
+        background-color: #e7d9c9;
+        color: #3b2f2f;
+        font-weight: 700;
+        font-size: 1.2rem;
+        padding: 1rem 2.5rem;
+        border-radius: 30px;
+        border: 2px solid transparent;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        margin: 0 0 2rem 0;
+        box-shadow: 0 4px 10px rgba(155, 123, 67, 0.3);
+    }
+    .btn-consult:hover {
+        background-color: #567bc1;
+        color: white;
+        border-color: #567bc1;
+        box-shadow: 0 6px 15px rgba(86, 123, 193, 0.6);
+    }
+    .offer {
+        margin-bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+    }
+    .offer h3 {
+        margin-top: 0;
+        color: #8b6a4b;
+        font-size: 1.25rem;
+    }
+    .offer p {
+        margin: 0.3rem 0 0 0;
+        line-height: 1.5;
+    }
+    .crypto-icons {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 1rem;
+        color: #bfa280;
+        font-size: 26px;
+    }
+    .crypto-icons svg, .crypto-icons i {
+        transition: color 0.3s ease, transform 0.3s ease;
+        cursor: default;
+    }
+    .crypto-icons svg:hover, .crypto-icons i:hover {
+        color: #567bc1;
+        transform: scale(1.15);
+    }
+    .pricing {
+        background: #f5f0e6;
+        padding: 2rem;
+        border-radius: 10px;
+    }
+    .pricing ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .pricing li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #d4c2b0;
+        font-weight: 600;
+    }
+    footer {
+        background: #f5f0e6;
+        text-align: center;
+        padding: 2rem 1rem;
+        margin-top: 3rem;
+        position: relative;
+        z-index: 2;
+        font-size: 0.9rem;
+        color: #6d5c5c;
+    }
+    .contact-info {
+        margin-top: 3rem;
+        background: #f5f0e6;
+        padding: 2rem 1rem;
+        border-radius: 10px;
+        color: #3b2f2f;
+        text-align: center;
+    }
+    .contact-info p {
+        margin: 0.5rem 0;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+    .social-buttons {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+    }
+    .social-buttons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        background-color: #e7d9c9;
+        border-radius: 50%;
+        text-decoration: none;
+        color: #3b2f2f;
+        font-size: 24px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .social-buttons a:hover {
+        background-color: #567bc1;
+        color: white;
+        box-shadow: 0 4px 12px rgba(86,123,193,0.7);
+    }
+    @media (max-width: 600px) {
+        .offer {
+            flex-direction: column;
+        }
+        .btn-consult {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+</head>
+<body>
+
+<header>
+    <h1>CryptoNavigate</h1>
+    <p>Twoja mapa po bezpiecznym i dynamicznym świecie kryptowalut</p>
+</header>
+
+<section>
+    <h2>O mnie / O firmie</h2>
+    <p>
+        Cześć! Nazywam się Bartosz i od ponad 5 lat zgłębiam tajniki kryptowalut i technologii blockchain. 
+        Przez ten czas zdobyłem praktyczne doświadczenie, pomagając wielu osobom bezpiecznie rozpocząć ich przygodę z cyfrowymi walutami. 
+        Wierzę, że świat krypto to nie tylko inwestycje, ale przede wszystkim edukacja i odpowiedzialne zarządzanie swoimi aktywami.  
+    </p>
+    <p>
+        Założyłem CryptoNavigate, aby dostarczać jasne i rzetelne informacje oraz wsparcie na każdym etapie — od zakładania portfela po zaawansowane strategie bezpieczeństwa. 
+        Moim celem jest nawigować Cię po tym złożonym świecie, eliminując ryzyko i dając pewność w Twoich działaniach.  
+    </p>
+    <p>
+        Jeśli szukasz kogoś, kto przeprowadzi Cię krok po kroku, z pasją i cierpliwością, jesteś w dobrym miejscu!
+    </p>
+</section>
+
+<section>
+    <h2>Nasze usługi</h2>
+    
+    <a href="mailto:cryptonavigate@proton.me?subject=Umów%20się%20na%20konsultację" 
+       class="btn-consult" 
+       aria-label="Umów się na konsultację">
+       Umów się na konsultację
+    </a>
+
+    <div class="crypto-icons" aria-label="Ikony kryptowalut">
+        <i class="fab fa-bitcoin" title="Bitcoin (BTC)"></i>
+        <i class="fab fa-ethereum" title="Ethereum (ETH)"></i>
+        <i class="fab fa-litecoin" title="Litecoin (LTC)"></i>
+        <i class="fab fa-solar" style="color:transparent;" aria-hidden="true"></i>
+        <i class="fas fa-coins" title="Stablecoiny (USDT, USDC)"></i>
+        <i class="fab fa-monero" title="Monero (XMR)"></i>
+    </div>
+
+    <div class="offer">
+        <h3>Konsultacje indywidualne</h3>
+        <p>Pomagam założyć i zabezpieczyć portfele (MetaMask, Ledger, Exodus), tłumaczę, czym są seedy i klucze prywatne oraz jak kupić pierwsze BTC i ETH.</p>
+    </div>
+    <div class="offer">
+        <h3>Warsztaty dla grup i firm</h3>
+        <p>Organizuję szkolenia online i na miejscu, obejmujące podstawy blockchain, inwestowania i bezpieczeństwa kryptowalut.</p>
+    </div>
+    <div class="offer">
+        <h3>Audyt bezpieczeństwa</h3>
+        <p>Analizuję zabezpieczenia portfeli i pomagam zapewnić odpowiednią ochronę Twoich aktywów cyfrowych.</p>
+    </div>
+    <div class="offer">
+        <h3>Zaawansowane strategie przechowywania</h3>
+        <p>Wprowadzam w rozproszone przechowywanie seedów, konfigurację multisig i cold storage – rozwiązania niedostępne w popularnych darmowych poradnikach.</p>
+    </div>
+    <div class="offer">
+        <h3>Online meetingi na żywo</h3>
+        <p>Spotkania przez Google Meet lub Zoom, gdzie rozwiązujemy bieżące problemy i omawiamy transakcje lub inwestycje.</p>
+    </div>
+    <div class="offer">
+        <h3>Subskrypcje premium</h3>
+        <p>Miesięczne i kwartalne pakiety z codziennym wsparciem i doradztwem w każdej kwestii kryptowalutowej.</p>
+    </div>
+    <div class="offer">
+        <h3>Materiały edukacyjne</h3>
+        <p>Spersonalizowane poradniki PDF oraz tutoriale video, dopasowane do Twoich potrzeb.</p>
+    </div>
+    <div class="offer">
+        <h3>Doradztwo sprzętowe</h3>
+        <p>Pomoc przy wyborze i konfiguracji urządzeń Ledger, Trezor oraz wsparcie w pierwszych transakcjach.</p>
+    </div>
+</section>
+
+<section class="pricing">
+    <h2>Cennik</h2>
+    <ul>
+        <li>Konsultacja 1:1 – <strong>150 zł</strong></li>
+        <li>Warsztaty grupowe – od <strong>350 zł / os.</strong></li>
+        <li>Audyt bezpieczeństwa – od <strong>250 zł</strong></li>
+        <li>Zaawansowane strategie – od <strong>400 zł</strong></li>
+        <li>Subskrypcja miesięczna – <strong>450 zł</strong></li>
+        <li>Subskrypcja 3-miesięczna – <strong>1200 zł</strong></li>
+    </ul>
+</section>
+
+<section class="contact-info">
+    <h2>Kontakt</h2>
+    <p>Instagram: <strong>@CryptoNavigatePL</strong></p>
+    <p>Telegram: <strong>@CryptoNavigatePL</strong></p>
+    <p>Email: <strong>CryptoNavigatePL@proton.me</strong></p>
+    <div class="social-buttons" aria-label="Linki do social media">
+        <a href="https://instagram.com/CryptoNavigatePL" target="_blank" rel="noopener" aria-label="Instagram CryptoNavigatePL">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://t.me/CryptoNavigatePL" target="_blank" rel="noopener" aria-label="Telegram CryptoNavigatePL">
+            <i class="fab fa-telegram"></i>
+        </a>
+    </div>
+</section>
+
+<footer>
+    <p>© 2025 CryptoNavigate – Twoja pewna nawigacja w świecie kryptowalut</p>
+</footer>
+
+</body>
+</html>
